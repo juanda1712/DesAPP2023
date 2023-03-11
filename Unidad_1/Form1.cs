@@ -252,9 +252,103 @@ namespace Unidad_1
                 MessageBox.Show(meses[i]);
             }
 
+            foreach( string item  in meses )
+            {
+                MessageBox.Show(item);
+            }
+
+
+
 
 
         }
+
+        /// <summary>
+        /// dicc tiene key y value 
+        /// </summary>
+        private void Diccionarios()
+        {
+
+            Dictionary<int, string> Students = new Dictionary<int, string>();
+
+            Students.Add(1, "Juan"); // Insert 
+            Students.Add(2, "Pablo");
+            Students[1] = "Pedro";  /// Update
+            Students.Remove(1);   /// Delete
+            Students.Clear(); // Clean
+                              
+            foreach( var item in Students)
+            {
+                MessageBox.Show(item.Value);
+                MessageBox.Show(item.Key.ToString());
+            }
+
+
+
+
+
+        }
+
+
+
+        private void Datatable_example ()
+        {
+
+
+            DataTable dt = new DataTable();  // declaro
+            dt.Columns.Add("Id", typeof(string)); // Agg Columnas
+            dt.Columns.Add("Detaller", typeof(string));
+            dt.Columns.Add("Valor", typeof(double));
+
+            dt.Rows.Add( new object[] { "1","Bolsa" , 50 } );  // Agg Rows 
+            dt.Rows.Add(new object[] { "2", "Caja" ,200 });
+
+
+            DataRow item_dt = dt.NewRow();
+            item_dt["Id"] = "3";
+            item_dt["Detaller"] = "Cartera";
+            item_dt["Valor"] = 50000;
+            dt.Rows.Add(item_dt);
+
+
+            string detalle;
+
+
+            foreach ( DataRow dr in dt.Rows)
+            {
+
+                detalle = dr["Detalle"].ToString(); 
+            }
+
+            detalle = dt.Rows[1]["Detalle"].ToString();
+            
+            dt.Rows[1]["Detalle"] = "Carton";
+
+
+
+
+
+        }
+
+
+
+
+        public void split_sxample()
+        {
+            string nombre = txtCC.Text;
+            char[] tipo = { ',', '-' };
+            string[] array_nombres = nombre.Split(tipo);
+
+
+
+
+
+        }
+
+
+
+
+
 
 
         /// <summary>
@@ -285,21 +379,53 @@ namespace Unidad_1
 
         private void button2_Click(object sender, EventArgs e)
         {
-            int cc = 0;            
-            
+            int cc = 0;
 
+            split_sxample();
+
+
+            clsPersona objPersonas = new clsPersona();  // instancia de la clase
+
+           
 
             if (txtCC.Text != "")
             {
-                cc = Convert.ToInt32(txtCC.Text);
 
-                //var con_nombre = consultar_nombre(cc, 123); // llamado de una funcion 
+                try
+                {
 
-                //// llamado de un metodo
-                //mostrarMsj(con_nombre);
+                    cc = Convert.ToInt16(txtCC.Text);
+                    
+                    if(cc == 10 )
+                    {
+                        throw new FormatException();
+                    }
+                    //var con_nombre = consultar_nombre(cc, 123); // llamado de una funcion 
 
-                string dia = consultar_dia_texto(cc);
-                mostrarMsj(dia);
+                    //// llamado de un metodo
+                    //mostrarMsj(con_nombre);
+
+                    string dia = consultar_dia_texto(cc);
+                    mostrarMsj(dia);
+                }
+                catch(OverflowException)
+                {
+                    MessageBox.Show("Ingrese un numero menor a 1000");
+                }
+                catch(FormatException fx)
+                {
+                    MessageBox.Show("Por favor ingrese un valor numerico " + fx.Message);
+
+                }
+                catch( Exception ex) 
+                {
+                    MessageBox.Show("Error al realizar la operación");                
+                } 
+
+                finally  // siempre se ejecutan 
+                {
+                    MessageBox.Show("finally");
+                }
             }
            
           
