@@ -286,7 +286,6 @@ namespace Unidad_1
 
 
 
-
         }
 
 
@@ -384,9 +383,13 @@ namespace Unidad_1
             split_sxample();
 
 
-            clsPersona objPersonas = new clsPersona();  // instancia de la clase
+            clsPersona objPersonas = new clsPersona(10);  // instancia de la clase
 
-           
+            Empleados objEmple = new Empleados();
+            objEmple.Insertar_Persona("Juan", 1093,"312898");
+
+            clsUtilidades.set_Log();
+
 
             if (txtCC.Text != "")
             {
