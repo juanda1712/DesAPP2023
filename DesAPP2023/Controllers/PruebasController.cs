@@ -8,10 +8,30 @@ namespace DesAPP2023.Controllers
     public class PruebasController : ControllerBase
     {
 
-        [HttpGet("Consultar")]
-        public string Consultar()
+
+        public static List<clsPruebas> ListItem = new List<clsPruebas>()
         {
-            return "Hola Mundo";
+            new clsPruebas()
+            {
+                ID = 0,
+                Name = "Prueba1"
+
+            },
+
+               new clsPruebas()
+            {
+                ID = 1,
+                Name = "Prueba2"
+
+            },
+
+        };
+
+
+        [HttpGet("Consultar")]
+        public List<clsPruebas> Consultar()
+        {
+            return ListItem;
         }
 
 
