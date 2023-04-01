@@ -24,6 +24,12 @@ namespace DesAPP2023.Controllers
                 Name = "Prueba2"
 
             },
+             new clsPruebas()
+            {
+                ID = 2,
+                Name = "Prueba3"
+
+            },
 
         };
 
@@ -35,10 +41,79 @@ namespace DesAPP2023.Controllers
         }
 
 
-        [HttpGet("Consultar 2")]
-        public string Consultar2()
+        [HttpGet("Item")]
+        public clsPruebas Item(int id)
         {
-            return "Hola Mundo 2";
+            return ListItem[id];
+        }
+
+        [HttpGet("Detalle")]
+        public dynamic Detail(int id)
+        {
+            //var hdr_key = Request.Headers["key_app"];
+            var hdr_key = Request.Headers.Where(x => x.Key.Equals("key_app")).FirstOrDefault();
+
+            if (hdr_key.Value.Count == 0 )
+            {
+                return new
+                {
+                    code = "API ERROR",
+                    message = "No esta autorizado",
+                    Detail = "N/A"
+
+                };
+            }
+            else 
+            {
+               if ( hdr_key.Value != "x1234")
+                {
+                    return new
+                    {
+                        code = "API ERROR",
+                        message = "Key invalido",
+                        Detail = "N/A"
+
+                    };
+
+                }              
+            
+            
+            }
+
+
+
+            var item =  ListItem.Where(x => x.ID == id ).ToList();
+            if (item.Count > 0)
+            {
+
+                if ( id == 0)
+                {
+                    return new
+                    {
+                        Data = item,
+                        code = "OK",
+                        message = "Respuesta Exitosa",
+                        Detail = "N/A"
+                    };
+                }
+                else
+                {
+                 return item;
+                }
+            }   
+            else 
+            {
+                return new
+                {
+                    code = "API COUNT",
+                    message = "No existen registros",
+                    Detail = "N/A"
+
+                };
+            
+            }
+
+
         }
     }
 }
