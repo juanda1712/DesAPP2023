@@ -1,5 +1,6 @@
 using DesAppMVC.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +12,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<WebApiContext>(obj => obj.UseSqlServer(builder.Configuration.GetConnectionString("cadenaSQL")));
 
-
+builder.Services.AddControllers().AddJsonOptions(opt =>
+{
+    opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+}
+);
 
 var app = builder.Build();
 

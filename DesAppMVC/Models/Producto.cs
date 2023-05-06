@@ -15,5 +15,5 @@ public partial class Producto
 
     public int? IdTipo { get; set; }
 
-    public virtual Tipo? IdTipoNavigation { get; set; }
+    public virtual Tipo? DetTipo { get; set; }
 }

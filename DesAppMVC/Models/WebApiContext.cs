@@ -39,7 +39,7 @@ public partial class WebApiContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false);
 
-            entity.HasOne(d => d.IdTipoNavigation).WithMany(p => p.Productos)
+            entity.HasOne(d => d.DetTipo).WithMany(p => p.Productos)
                 .HasForeignKey(d => d.IdTipo)
                 .HasConstraintName("FK_IDTIPO");
         });
