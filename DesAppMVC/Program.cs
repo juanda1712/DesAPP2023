@@ -18,15 +18,27 @@ builder.Services.AddControllers().AddJsonOptions(opt =>
 }
 );
 
+
+var ReglasCors = "ReglasCors";
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy(name: ReglasCors, builder =>
+    {
+        builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+
+    });
+
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
     app.UseSwagger();
     app.UseSwaggerUI();
-}
-
+//}
+app.UseCors(ReglasCors);
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
